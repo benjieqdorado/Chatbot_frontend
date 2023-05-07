@@ -1,0 +1,22 @@
+[
+  {
+    "role": "assistant",
+    "message": "Hey there. We would like to invite you over to our office for a visit. How about it?"
+  },
+  {
+    "role": "assistant",
+    "message": "All travel expenses are covered by us of course :D"
+  },
+  {
+    "role": "customer",
+    "message": "It's like a dream come true"
+  },
+  {
+    "role": "customer",
+    "message": "I accept. Thank you very much."
+  },
+  {
+    "role": "assistant",
+    "message": "You are welome. We will stay in touch."
+  }
+]
