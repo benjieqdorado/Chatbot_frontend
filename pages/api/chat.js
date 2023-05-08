@@ -16,7 +16,7 @@ export default async function handler(req, res) {
         .json({ message: "Success Fetch Api", data: data });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: "Internal server error" });
+      res.status(500).json({ message: "Internal server error hellow" });
     }
   }
 
