@@ -1,30 +1,45 @@
 import { useRef } from "react";
 
-function ChatForm({ fetchChatData,setChat }) {
+function ChatForm({ fetchChatData, setChat, setTyping, setError }) {
   const customerInput = useRef();
 
   async function submitFormHandler(event) {
     event.preventDefault();
 
     const enteredCustomerInput = customerInput.current.value;
-    setChat((prevChat) => [...prevChat, { role: 'user', content: enteredCustomerInput }]);
+    setChat((prevChat) => [
+      ...prevChat,
+      { role: "user", message: enteredCustomerInput },
+    ]);
+    setTyping(true);
     const question = {
       question: enteredCustomerInput,
     };
 
-    customerInput.current.value = '';
-    
-    const response = await fetch("http://localhost:5000/chatgpt/question", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(question),
-    });
+    customerInput.current.value = "";
+    try {
+      const response = await fetch("http://localhost:5000/chatgpt/question", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(question),
+      });
 
-    const data = await response.json();
-    
-    fetchChatData();
+      if (!response.ok) {
+        setError(true);
+        setTyping(false);
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+
+      fetchChatData();
+      setTyping(false);
+    } catch (error) {
+      setTyping(false);
+      setError(true);
+      console.error("An error occurred:", error);
+    }
   }
 
   return (
