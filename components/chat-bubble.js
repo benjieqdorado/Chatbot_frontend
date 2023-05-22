@@ -5,7 +5,7 @@ function ChatBubble({ updatedResponse, imageUrl, thumbnailUrl, role }) {
     <div className="message mb-4 flex" >
       <div className="flex-2">
         <div className="w-12 h-12 relative">
-          <img
+          <Image
             className="w-12 h-12 rounded-full mx-auto"
             src="./resources/chatbot.png"
             alt="chat-user"

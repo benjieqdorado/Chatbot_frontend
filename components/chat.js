@@ -3,7 +3,7 @@ import ChatForm from "./chat-form";
 import { useState, useEffect } from "react";
 import Typing from "./typing";
 import Error from "./error";
-function chat() {
+function Chat() {
   const [chats, setChat] = useState([]);
   const [typing, setTyping] = useState(false);
   const [error, setError] = useState(false);
@@ -128,4 +128,4 @@ function chat() {
   );
 }
 
-export default chat;
+export default Chat;
