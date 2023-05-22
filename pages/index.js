@@ -1,7 +1,6 @@
 import Head from "next/head";
 
-import Chat from "../component/chat";
-import Script from 'next/script'
+import Chat from "../components/chat";
 
 export default function Home() {
   return (
@@ -11,7 +10,6 @@ export default function Home() {
         <meta name="description" content="Chatbot" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        <Script src="https://cdn.tailwindcss.com"></Script>
       </Head>
       <div className="w-full h-screen">
         <div className="flex h-full">
