@@ -9,12 +9,13 @@ function Chat() {
   const [error, setError] = useState(false);
   const fetchChatData = async () => {
     try {
-      const response = await fetch("http://157.230.16.36:8000/chatgpt/question");
+      const response = await fetch("api/chat");
+      
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const chatData = await response.json();
-      setChat(chatData);
+      setChat(chatData.data);      
     } catch (error) {
       console.error("An error occurred:", error);
     }
@@ -22,8 +23,10 @@ function Chat() {
 
   useEffect(() => {
     fetchChatData();
+    
   }, []);
 
+ 
   return (
     <div
       className="main flex-1 flex flex-col max-w-3xl"

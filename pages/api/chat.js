@@ -1,12 +1,10 @@
 export default async function handler(req, res) {
   if (req.method === "GET") {
     try {
-      const response = await fetch("http://157.230.16.36:8000/chatgpt/question");
+      const response = await fetch("http://127.0.0.1:8000/chatgpt/question");
       const data = await response.json();
-
-      res.status(200).json({ data: data });
-
       
+      res.status(200).json({ data: data });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Internal server error" });
@@ -15,8 +13,13 @@ export default async function handler(req, res) {
 
   if (req.method === "POST") {
     try {
-      // Code for handling POST requests goes here
-      // ...
+      const response = await fetch("http://127.0.0.1:8000/chatgpt/question", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req.query),
+      });
       res.status(200).json({ message: "Success POST request" });
     } catch (error) {
       console.error(error);

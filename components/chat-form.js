@@ -12,26 +12,24 @@ function ChatForm({ fetchChatData, setChat, setTyping, setError }) {
       { role: "user", message: enteredCustomerInput },
     ]);
     setTyping(true);
-    const question = {
-      question: enteredCustomerInput,
-    };
-
+  
     customerInput.current.value = "";
     try {
-      const response = await fetch("http://157.230.16.36:8000/chatgpt/question", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(question),
-      });
+      const response = await fetch(
+        "api/chat?" +
+          new URLSearchParams({
+            question: enteredCustomerInput,
+          }),
+        {
+          method: "POST",
+        }
+      );
 
       if (!response.ok) {
         setError(true);
         setTyping(false);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const data = await response.json();
 
       fetchChatData();
       setTyping(false);

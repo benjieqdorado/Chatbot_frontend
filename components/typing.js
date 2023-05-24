@@ -7,8 +7,10 @@ function Typing() {
         <div className="w-12 h-12 relative">
           <Image
             className="w-12 h-12 rounded-full mx-auto"
-            src="./resources/chatbot.png"
+            src="/resources/chatbot.png"
             alt="chat-user"
+            width={48}
+            height={48}
           />
           <span className="absolute w-4 h-4 bg-gray-400 rounded-full right-0 bottom-0 border-2 border-white" />
         </div>
