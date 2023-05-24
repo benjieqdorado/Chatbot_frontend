@@ -9,7 +9,7 @@ function Chat() {
   const [error, setError] = useState(false);
   const fetchChatData = async () => {
     try {
-      const response = await fetch("http://localhost:8000/chatgpt/question");
+      const response = await fetch("http://157.230.16.36:8000/chatgpt/question");
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
