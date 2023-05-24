@@ -18,7 +18,7 @@ function ChatForm({ fetchChatData, setChat, setTyping, setError }) {
 
     customerInput.current.value = "";
     try {
-      const response = await fetch("http://localhost:5000/chatgpt/question", {
+      const response = await fetch("http://localhost:8000/chatgpt/question", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
