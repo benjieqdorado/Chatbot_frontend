@@ -17,10 +17,11 @@ export default async function handler(req, res) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Accept": "text/event-stream",
         },
         body: JSON.stringify(req.query),
       });
-      res.status(200).json({ message: "Success POST request" });
+      res.status(200).json(response);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Internal server error" });
