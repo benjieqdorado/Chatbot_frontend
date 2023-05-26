@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-function ChatBubble({ updatedResponse, imageUrl, thumbnailUrl, role }) {
+function ChatBubble({ updatedResponse, imageUrl, role }) {
   return role === "assistant" ? (
     <div className="message mb-4 flex" >
       <div className="flex-2">
@@ -28,20 +28,7 @@ function ChatBubble({ updatedResponse, imageUrl, thumbnailUrl, role }) {
             <Image
               loader={() => imageUrl}
               src={imageUrl}
-              alt="ALFA Defender"
-              width={200}
-              height={200}
-              className="rounded-lg"
-            />
-          </div>
-        )}
-
-        {thumbnailUrl && (
-          <div className="mt-2">
-            <Image
-              loader={() => thumbnailUrl}
-              src={thumbnailUrl}
-              alt="ALFA Defender"
+              alt={imageUrl}
               width={200}
               height={200}
               className="rounded-lg"

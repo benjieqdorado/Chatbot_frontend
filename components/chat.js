@@ -3,6 +3,7 @@ import ChatForm from "./chat-form";
 import { useState, useEffect } from "react";
 import Typing from "./typing";
 import Error from "./error";
+import FormatResponse from "@/helper/format-response";
 function Chat() {
   const [chats, setChat] = useState([]);
   const [typing, setTyping] = useState(false);
@@ -17,7 +18,7 @@ function Chat() {
       }
       const chatData = await response.json();
       setChat(chatData.data);
-      setStream('');
+      setStream("");
     } catch (error) {
       console.error("An error occurred:", error);
     }
@@ -46,70 +47,13 @@ function Chat() {
             {chats.map((chat, index) => {
               if (chat.role !== "system" && chat.message !== "") {
                 const response = chat.message;
-                let updatedResponse;
-                let thumbnailUrl;
-                let imageUrl;
-                const linkRegex =
-                  /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#\-\s]*[\w@?^=%&\/~+#-])/;
-
-                const match = response.match(linkRegex);
-
-                if (!match) {
-                  updatedResponse = response;
-                } else {
-                  const pattern = /<iframe\s+.*?>.*?<\/iframe>/i;
-                  const imageUrlRegExp =
-                    /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/i;
-
-                  const imageUrlMatch = response.match(imageUrlRegExp);
-                  if (pattern.test(response)) {
-                    thumbnailUrl = `https://img.youtube.com/vi/${match[0].substring(
-                      match[0].indexOf("embed/") + 6
-                    )}/0.jpg`;
-                  } else if (imageUrlMatch) {
-                    imageUrl = imageUrlMatch[0];
-                  }
-
-                  const anchorRegex =
-                    /<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1[^>]*?>.*?<\/a>/i;
-                  if (anchorRegex.test(response)) {
-                    updatedResponse = response;
-                  } else {
-                    let htmlPattern = /(<([^>]+)>)/gi;
-                    if (linkRegex.test(response)) {
-                      updatedResponse = response.replace(
-                        linkRegex,
-                        (matchs, p1) => {
-                          if (p1.startsWith("</")) {
-                            return `</a>`;
-                          } else {
-                            return `<a href="${match[0]}" target="_blank" style="text-decoration: underline; color: #0096FF;">${match[0]}`;
-                          }
-                        }
-                      );
-                    }
-                    if (htmlPattern.test(response)) {
-                      updatedResponse = response.replace(
-                        htmlPattern,
-                        (matchs, p1) => {
-                          if (p1.startsWith("</")) {
-                            return `</a>`;
-                          } else {
-                            return `<a href="${match[0]}" target="_blank" style="text-decoration: underline; color: #0096FF;">${match[0]}`;
-                          }
-                        }
-                      );
-                    }
-                    // Replace HTML tags with <a> elements
-                  }
-                }
+                const { updatedResponse, imageUrl } = FormatResponse(response);
 
                 return (
                   <ChatBubble
                     key={index}
                     updatedResponse={updatedResponse}
                     imageUrl={imageUrl}
-                    thumbnailUrl={thumbnailUrl}
                     role={chat.role}
                   />
                 );

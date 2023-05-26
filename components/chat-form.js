@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-function ChatForm({ fetchChatData, setChat, setTyping, setError,setStream }) {
+function ChatForm({ fetchChatData, setChat, setTyping, setError, setStream }) {
   const customerInput = useRef();
 
   async function submitFormHandler(event) {
@@ -12,7 +12,7 @@ function ChatForm({ fetchChatData, setChat, setTyping, setError,setStream }) {
       { role: "user", message: enteredCustomerInput },
     ]);
     setTyping(true);
-  
+
     customerInput.current.value = "";
     try {
       const response = await fetch(
@@ -36,7 +36,7 @@ function ChatForm({ fetchChatData, setChat, setTyping, setError,setStream }) {
       while (true) {
         const { value, done } = await reader.read();
         if (done) break;
-        const chunk = new TextDecoder().decode(value); 
+        const chunk = new TextDecoder().decode(value);
         setStream((prev) => [...prev, chunk]);
         setTyping(false);
       }
