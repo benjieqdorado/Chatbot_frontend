@@ -71,13 +71,10 @@ function ChatForm({ fetchChatData, setChat, setTyping, setError, setStream }) {
           </div>
 
           <div className="flex-1">
-            <textarea
-              name="message"
-              className="w-full block outline-none py-4 px-4 bg-transparent"
-              rows={1}
+            <input
+              className="w-full block outline-none py-4 px-4 bg-transparent text-black"
               placeholder="Type a message..."
               autoFocus
-              defaultValue={""}
               ref={customerInput}
             />
           </div>
