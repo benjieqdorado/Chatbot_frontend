@@ -1,6 +1,6 @@
 import ChatBubble from "./chat-bubble";
 import ChatForm from "./chat-form";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Typing from "./typing";
 import Error from "./error";
 import FormatResponse from "@/helper/format-response";
@@ -9,6 +9,7 @@ function Chat() {
   const [typing, setTyping] = useState(false);
   const [error, setError] = useState(false);
   const [stream, setStream] = useState("");
+  const messageEndRef = useRef(null);
   const fetchChatData = async () => {
     try {
       const response = await fetch("api/chat");
@@ -28,6 +29,9 @@ function Chat() {
     fetchChatData();
   }, []);
 
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView();
+  }, [chats]);
   return (
     <div
       className="main flex-1 flex flex-col max-w-3xl"
@@ -59,6 +63,8 @@ function Chat() {
                 );
               }
             })}
+            <div ref={messageEndRef}></div>
+
             {typing ? <Typing /> : null}
             {error ? <Error /> : null}
 
@@ -83,6 +89,7 @@ function Chat() {
             ) : null}
           </div>
 
+          
           <ChatForm
             fetchChatData={fetchChatData}
             setChat={setChat}
